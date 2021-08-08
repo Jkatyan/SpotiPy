@@ -48,7 +48,7 @@ def handle_submit(event):
     print("URL: " + url)
     indexStart = url.find("/", 30)
     indexEnd = url.find("?", 30)
-    uri = "https://scannables.scdn.co/uri/plain/jpeg/000000/white/1200/spotify:track:" + url[indexStart + 1 : indexEnd]
+    uri = "https://scannables.scdn.co/uri/plain/jpeg/000000/white/2047/spotify:track:" + url[indexStart + 1 : indexEnd]
     print("URI: " + uri)
     urlEntry.delete(0, tk.END)
     outputName = outputNameEntry.get()
@@ -58,21 +58,17 @@ def handle_submit(event):
     print(imagePath)
     print(outputPath)
 
-    new = Image.new("RGBA", (1200,1590))
+    new = Image.new("RGBA", (2400,3000))
 
     art = Image.open(str(imagePath))
-    art = art.resize((1200,1200))
+    art = art.resize((2400,2400))
 
     urllib.request.urlretrieve(uri, "code.jpeg")
     code = Image.open("code.jpeg")
-    code = code.resize((1200,300))
-
-    rect = Image.new('RGB', (1200,45), "black")
+    code = code.resize((2400,600))
 
     new.paste(art, (0,0))
-    new.paste(rect, (0,1200))
-    new.paste(code, (0,1245))
-    new.paste(rect, (0,1545))
+    new.paste(code, (0,2400))
     new.save(outputPath + "/" + outputName + ".png")
 
     imgButton.configure(relief= 'groove')
